@@ -21,18 +21,28 @@ body {
     height: 97.5vh;
 }
 
-div#colour-scheme {
-    text-align: center;
-}
-
-div#message-display-container {
-    overflow-y: scroll;
-}
-
 button#submit-message-btn {
     border: 3px solid grey;
     height: 30px;
     width: 9.5%;
+}
+
+/*div#colour-scheme {
+    text-align: center;
+}*/
+
+div.message-container {
+    background-color: #1e5a68;;
+    border-radius: 5px;
+    box-shadow: 1px 2px 3px rgba(255, 255, 255, 40%) inset, -3px -2px 4px rgba(0, 0, 0, 50%) inset; 
+    margin-bottom: 14px;
+    min-width: 10vw;
+}
+
+div#message-display-container {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
 }
 
 input#message-content {
@@ -44,21 +54,27 @@ input#message-content {
     width: 90%;
 }
 
+li.message-component {
+    max-width: 45%;
+}
+
+li.own-message {
+    align-self: flex-end;
+}
+
 main {
     height: 100%;
 }
 
-p {
+p.message-content, p.username {
     color: #E0E0B8;
-    margin-top: 0px;
+    margin: 0 5px;
+    padding: 5px;
 }
 
 p.username {
-    margin-bottom: 8px;
-}
-
-p.message {
-    margin-bottom: 32px;
+    padding-bottom: 0;
+    text-decoration: underline;
 }
 
 p.error {
@@ -75,6 +91,9 @@ section#message-section {
 }
 
 ul#message-display {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
     margin-bottom: 0px;
 }
 

@@ -9,6 +9,7 @@ submitButton.addEventListener("click", (e) => {
 
 function displayMessage(messageContent) {
     const li = document.createElement("li");
+    li.classList.add("message-component", "own-message");
     
     const div = document.createElement("div");
     div.classList.add("message-container");
