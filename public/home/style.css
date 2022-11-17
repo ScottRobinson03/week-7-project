@@ -1,6 +1,5 @@
 :root {
     --background-color: #303a5f;
-
 }
 
 a:link {
@@ -17,8 +16,20 @@ a:visited {
 body {
     background-color: var(--background-color);
     box-sizing: border-box;
+    color: #E0E0B8;
     font-size: var(--font-size);
-    height: 97.5vh;
+    height: 92.5vh;
+}
+
+button {
+    background-color: #1e5a68;
+    border-radius: 5px;
+    box-shadow: 1px 2px 3px rgba(255, 255, 255, 40%) inset, -3px -2px 4px rgba(0, 0, 0, 50%) inset; 
+    color: #E0E0B8;
+}
+
+button#sign-out-btn {
+    padding: 8px;
 }
 
 button#submit-message-btn {
@@ -41,13 +52,24 @@ div#message-display-container {
     overflow-y: scroll;
 }
 
+div#sign-out-container {
+    display: flex;
+    justify-content: right;
+}
+
 input#message-content {
     align-self: flex-end;
+    background-color: #1e5a68;
     box-sizing: border-box;
     border: 3px solid grey;
+    color: #E0E0B8;
     height: 30px;
-    padding: 0 20px 0 5px;    
+    padding: 0 20px 0 5px;
     width: 90%;
+}
+
+::placeholder {
+    color: #E0E0B8;
 }
 
 li.message-component {
@@ -63,7 +85,6 @@ main {
 }
 
 p.message-content, p.username {
-    color: #E0E0B8;
     margin: 0 5px;
     padding: 5px;
 }

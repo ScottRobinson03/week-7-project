@@ -1,0 +1,67 @@
+* {
+    box-sizing: border-box;
+    color: #E0E0B8;
+}
+
+body {
+    background-color: #303a5f;
+}
+
+button {
+    background-color: #046944;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+  
+button:hover {
+    opacity:1;
+}
+
+button#cancel-btn {
+    background-color: #a72017;
+    margin-left: 8px;
+    padding: 14px 20px;
+}
+
+button#sign-up-btn {
+    margin-right: 8px;
+}
+
+div.clearfix {
+    align-items: center;
+    display: flex;
+    padding: 0;
+}
+
+div.container {
+    padding: 16px;
+}
+
+h1 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password], input[type=email] {
+    background-color: #252D49;;
+    border: 1px solid #ccc;
+    display: inline-block;
+    margin: 5px 0 22px 0;
+    padding: 15px;
+    width: 100%;
+}
+
+p {
+    text-align: center;
+}

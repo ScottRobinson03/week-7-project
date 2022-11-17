@@ -1,9 +1,19 @@
 const messageInput = document.getElementById("message-content");
 const submitButton = document.getElementById("submit-message-btn");
 const messageUl = document.getElementById("message-display");
+const signOutButton = document.getElementById("sign-out-btn");
 
-submitButton.addEventListener("click", (e) => {
-    e.preventDefault();
+signOutButton.addEventListener("click", async () => {
+    const resp = await fetch("../logout");
+    if (resp.status !== 200) {
+        console.log(await resp.json());
+        return;
+    }
+    location.href = "../login"
+    location.reload(); // needed to prevent accessing messages via back button
+});
+
+submitButton.addEventListener("click", () => {
     displayMessage(messageInput.value);
 });
 
@@ -16,7 +26,9 @@ function displayMessage(messageContent) {
 
     const pUsername = document.createElement("p");
     pUsername.classList.add("username");
-    pUsername.innerText = "Anonymous";
+    // Get username from the username cookie
+    const username = document.cookie.split('; ').find((row) => row.startsWith('username='))?.split('=')[1];
+    pUsername.innerText = username;
     
     const pMessage = document.createElement("p");
     pMessage.classList.add("message-content");
