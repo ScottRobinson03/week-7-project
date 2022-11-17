@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const http = require("http");
 const { Server } = require("socket.io");
 const { homeRouter, authRouter } = require("./routes");
+const { Message } = require("./models");
 
 const app = express();
 process.env["JWT_SECRET"] = "my-secret-text";
@@ -15,9 +16,11 @@ app.use("/", authRouter);
 const server = http.createServer(app);
 const io = new Server(server);
 
-io.on("connection", socket => {
-    socket.on("chat message", msg => {
+io.on("connection", async socket => {
+    socket.on("chat message", async msg => {
         io.emit("chat message", msg);
+        const msgComponent = new Message({authorName: msg.author, content: msg.content});
+        await msgComponent.save();
     });
 });
 

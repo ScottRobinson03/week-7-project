@@ -5,6 +5,13 @@ const signOutButton = document.getElementById("sign-out-btn");
 
 const socket = io();
 
+const messages = fetch("../messages")
+    .then(resp => resp.json())
+    .then(messages => messages.forEach(
+        msg => displayMessage({author: msg.authorName, content: msg.content})
+    )
+).catch(err => console.log(err));
+
 signOutButton.addEventListener("click", async () => {
     const resp = await fetch("../logout");
     if (resp.status !== 200) {
@@ -24,6 +31,10 @@ submitButton.addEventListener("click", () => {
 });
 
 socket.on("chat message", msg => {
+    displayMessage(msg);
+});
+
+function displayMessage(msg) {
     const li = document.createElement("li");
     li.classList.add("message-component");
     const clientUsername = document.cookie.split('; ').find((row) => row.startsWith('username='))?.split('=')[1];
@@ -47,4 +58,4 @@ socket.on("chat message", msg => {
     messageUl.append(li);
 
     li.scrollIntoView();
-});
+}
