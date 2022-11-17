@@ -1,5 +1,5 @@
 const express = require("express");
-const verifyJWT_MW = require("../middleware/tokens");
+const { verifyJWT_MW } = require("../middleware");
 const { Message } = require("../models");
 
 const router = express.Router();

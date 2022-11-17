@@ -16,6 +16,8 @@ router.post(
             throw new Error("username must be a valid string");
         } else if (value.length < 5 || value.length > 15) {
             throw new Error("username must be 5-15 chars (inclusive)");
+        } else if (value.toLowerCase().includes("deleted")) {
+            throw new Error("username must not contain 'deleted'");
         } else if (await User.findOne({username: value}) !== null) {
             throw new Error("username must be unique");
         }

@@ -3,15 +3,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const http = require("http");
 const { Server } = require("socket.io");
-const { homeRouter, authRouter } = require("./routes");
+const { authRouter, homeRouter, messageRouter, userRouter } = require("./routes");
 const { Message } = require("./models");
 
 const app = express();
 process.env["JWT_SECRET"] = "my-secret-text";
 app.use(express.json());
 app.use(cookieParser());
-app.use("/", homeRouter);
-app.use("/", authRouter);
+app.use("/", authRouter, homeRouter, messageRouter, userRouter);
 
 const server = http.createServer(app);
 const io = new Server(server);
