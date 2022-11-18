@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 :root {
     --background-color: #303a5f;
 }
@@ -17,6 +18,7 @@ body {
     background-color: var(--background-color);
     box-sizing: border-box;
     color: #E0E0B8;
+    font-family: Roboto, sans-serif;
     font-size: 16px;
     height: 92.5vh;
 }
