@@ -43,17 +43,7 @@ function checkKey(e) {
     newContentInp.addEventListener('focusout', async () => {
         if (newContentInp.value === '') {
             // Delete the message
-            const resp = await fetch(`../message/${msgToEdit.id}`, {
-                method: "DELETE",
-                headers: {'Content-Type': "application/json", "Authorization": getCookie("token")},
-            });
-            if (resp.status === 204) {
-                // Message was successfully deleted, so get clients to remove from frontend
-                socket.emit("delete message", {id: msgToEdit.id});
-            } else {
-                // Message failed to delete, so log the reason in the console
-                console.log(await resp.json());
-            }
+            socket.emit("delete message", {id: msgToEdit.id});
             return;
         }
         // Edit the message

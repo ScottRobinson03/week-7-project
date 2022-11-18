@@ -15,6 +15,7 @@ io.on("connection", async socket => {
     });
 
     socket.on("delete message", async msg => {
+        await Message.findByIdAndDelete(msg.id);
         io.emit("delete message", msg);
     });
 
