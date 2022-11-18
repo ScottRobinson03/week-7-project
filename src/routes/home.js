@@ -10,4 +10,8 @@ router.get("/", (_, resp) => {
     resp.redirect("/home");
 });
 
+router.get("/messages", verifyJWT_MW, async (_, resp) => {
+    resp.json(await Message.find({}));
+});
+
 module.exports = router;

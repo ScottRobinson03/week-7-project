@@ -1,15 +1,11 @@
 const { Router } = require("express");
-const { isThunderClientRequest, isValidMessage, verifyJWT_MW } = require("../middleware");
+const { isThunderClientRequest, isValidMessage } = require("../middleware");
 const { Message } = require("../models");
 const router = Router();
 
-router.all("*", verifyJWT_MW)
+router.all("*", isThunderClientRequest)
 
-router.get("/messages", async (_, resp) => {
-    resp.json(await Message.find({}));
-});
-
-router.delete("/messages", isThunderClientRequest, async (_, resp) => {
+router.delete("/messages", async (_, resp) => {
     await Message.deleteMany({});
     resp.sendStatus(204); // "no content" response code
 });
