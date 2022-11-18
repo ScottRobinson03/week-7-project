@@ -35,22 +35,27 @@ function checkKey(e) {
 
     const newContentInp = document.createElement("input");
     newContentInp.classList.add("message-content");
-    newContentInp.innerText = msgContentP.innerText;
-    newContentInp.autofocus = true;
+    newContentInp.value = msgContentP.innerText;
 
     document.activeElement.blur();
 
-    newContentInp.addEventListener('focusout', async () => {
+    newContentInp.addEventListener('focusout', () => {
         if (newContentInp.value === '') {
             // Delete the message
             socket.emit("delete message", {id: msgToEdit.id});
             return;
         }
         // Edit the message
+        if (newContentInp.value === msgContentP.innerText) {
+            // Content didn't change, so just set back to old p element
+            newContentInp.blur();
+            newContentInp.replaceWith(msgContentP);
+            return;
+        }
         socket.emit("edit message", {id: msgToEdit.id, newContent: newContentInp.value});
     });
-
     msgContentP.replaceWith(newContentInp);
+    newContentInp.focus();
 }
 
 function displayMessage(msg) {
