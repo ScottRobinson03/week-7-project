@@ -33,6 +33,7 @@ button {
 
 button#sign-out-btn {
     padding: 8px;
+    width: 85px;
 }
 
 button#submit-message-btn {
@@ -48,7 +49,7 @@ div#input-section {
 
 div.message-container {
     background-color: #1e5a68;;
-    border-radius: 5px 5px 0 5px;
+    border-radius: 5px;
     box-shadow: 1px 2px 3px rgba(255, 255, 255, 40%) inset, -3px -2px 4px rgba(0, 0, 0, 50%) inset; 
     margin-bottom: 14px;
     min-width: 75px;
