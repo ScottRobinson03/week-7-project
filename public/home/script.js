@@ -12,42 +12,6 @@ const messages = fetch("../messages")
     )
 ).catch(err => console.log(err));
 
-async function signOut() {
-    const resp = await fetch("../logout");
-    if (resp.status !== 200) {
-        console.log(await resp.json());
-        return;
-    }
-    location.href = "../login"
-    location.reload(); // needed to prevent accessing messages via back button
-}
-
-function getUsername() {
-    return document.cookie.split('; ').find((row) => row.startsWith('username='))?.split('=')[1];
-}
-
-signOutButton.addEventListener("click", async () => {
-    await signOut();
-});
-
-submitButton.addEventListener("click", () => {
-    //displayMessage(messageInput.value);
-    if (!messageInput.value) return;
-    const messageAuthor = getUsername();
-    socket.emit("chat message", {author: messageAuthor, content: messageInput.value});
-    messageInput.value = "";
-});
-
-socket.on("user deleted", async username => {
-    if (username === getUsername()) {
-        await signOut();
-    }
-});
-
-socket.on("chat message", msg => {
-    displayMessage(msg);
-});
-
 function displayMessage(msg) {
     const li = document.createElement("li");
     li.classList.add("message-component");
@@ -73,3 +37,38 @@ function displayMessage(msg) {
 
     li.scrollIntoView();
 }
+
+async function signOut() {
+    const resp = await fetch("../logout");
+    if (resp.status !== 200) {
+        console.log(await resp.json());
+        return;
+    }
+    location.href = "../login"
+    location.reload(); // needed to prevent accessing messages via back button
+}
+
+function getUsername() {
+    return document.cookie.split('; ').find((row) => row.startsWith('username='))?.split('=')[1];
+}
+
+signOutButton.addEventListener("click", async () => {
+    await signOut();
+});
+
+submitButton.addEventListener("click", () => {
+    if (!messageInput.value) return;
+    const messageAuthor = getUsername();
+    socket.emit("chat message", {author: messageAuthor, content: messageInput.value});
+    messageInput.value = "";
+});
+
+socket.on("user deleted", async username => {
+    if (username === getUsername()) {
+        await signOut();
+    }
+});
+
+socket.on("chat message", msg => {
+    displayMessage(msg);
+});
