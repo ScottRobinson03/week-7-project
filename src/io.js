@@ -9,9 +9,13 @@ const io = new Server(server);
 
 io.on("connection", async socket => {
     socket.on("chat message", async msg => {
-        io.emit("chat message", msg);
         const msgComponent = new Message({authorName: msg.author, content: msg.content});
         await msgComponent.save();
+        io.emit("chat message", {...msg, ...{id: msgComponent._id}});
+    });
+
+    socket.on("delete message", async msg => {
+        io.emit("delete message", msg);
     });
 });
 

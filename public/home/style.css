@@ -58,7 +58,7 @@ div#sign-out-container {
     justify-content: right;
 }
 
-input#message-content {
+input.message-content {
     align-self: flex-end;
     background-color: #1e5a68;
     box-sizing: border-box;

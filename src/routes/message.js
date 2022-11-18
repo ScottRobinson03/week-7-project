@@ -3,9 +3,13 @@ const { isThunderClientRequest, isValidMessage, verifyJWT_MW } = require("../mid
 const { Message } = require("../models");
 const router = Router();
 
-router.all("*", isThunderClientRequest)
+router.all("*", verifyJWT_MW)
 
-router.delete("/messages", async (_, resp) => {
+router.get("/messages", async (_, resp) => {
+    resp.json(await Message.find({}));
+});
+
+router.delete("/messages", isThunderClientRequest, async (_, resp) => {
     await Message.deleteMany({});
     resp.sendStatus(204); // "no content" response code
 });

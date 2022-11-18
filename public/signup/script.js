@@ -29,6 +29,7 @@ submitBtn.addEventListener("click", async () => {
     if (resp.status === 201) {
         errorP.innerText = "";
         document.cookie = `token=${json.token}; path=/`;
+        document.cookie = `username=${usernameInp.value}; path=/`;
         location.href = "../../";
     } else {
         errorP.innerText = json.errors[0].msg === "Invalid value" ? "email must be a valid email address": json.errors[0].msg;
