@@ -13,6 +13,11 @@ if (token) {
     location.href = "../..";
 }
 
+function togglePasswordVisibility() {
+    passwordInp.type = passwordInp.type === "password" ? "text" : "password";
+    passwordConfirmInp.type = passwordConfirmInp.type === "password" ? "text" : "password";
+}
+
 cancelBtn.addEventListener("click", () => {
     location.href = "../login";
 });

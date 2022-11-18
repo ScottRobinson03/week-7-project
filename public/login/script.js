@@ -10,6 +10,10 @@ if (token) {
     location.href = "../..";
 }
 
+function togglePasswordVisibility() {
+    passwordInp.type = passwordInp.type === "password" ? "text" : "password";
+}
+
 signUpBtn.addEventListener("click", () => {
     location.href = "../signup";
 });
