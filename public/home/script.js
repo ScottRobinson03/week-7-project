@@ -12,12 +12,23 @@ const messages = fetch("../messages")
     )
 ).catch(err => console.log(err));
 
-document.onkeydown = checkKey;
+messageInput.onkeydown = checkKey;
 
 function checkKey(e) {
     e = e || window.event;
 
-    if (messageInput !== document.activeElement) return; // don't have the message input focused, so ignore
+    if (e.keyCode === 13) { // enter key was pressed 
+        if (messageInput.value) {
+            submitButton.click();
+        }
+        return;
+    }
+    if (e.keyCode === 27) { // esc key was pressed
+        messageInput.value = "";
+        messageInput.blur();
+        return;
+    }
+
     if (e.keyCode !== 38) return; // key isn't the up arrow, so ignore
 
     let msgToEdit;
@@ -38,6 +49,16 @@ function checkKey(e) {
     newContentInp.value = msgContentP.innerText;
 
     document.activeElement.blur();
+
+    newContentInp.onkeydown = (ev => {
+        ev = ev || window.event;
+
+        if (ev.keyCode === 27) { // esc key was pressed
+            newContentInp.replaceWith(msgContentP);
+        } else if (ev.keyCode == 13) { // return key was pressed
+            newContentInp.blur();
+        }
+    });
 
     newContentInp.addEventListener('focusout', () => {
         if (newContentInp.value === '') {
