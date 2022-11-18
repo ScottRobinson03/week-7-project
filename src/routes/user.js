@@ -1,11 +1,13 @@
 const { Router } = require("express");
 const { isThunderClientRequest, isValidUsername } = require("../middleware");
 const { Message, User } = require("../models");
+const { io } = require("../io");
 const router = Router();
 
 async function deleteUser(username) {
     await Message.updateMany({authorName: username}, {authorName: "Deleted User"});
     await User.findOneAndDelete({username: username});
+    io.emit("user deleted", username);
 }
 
 router.all("*", isThunderClientRequest);
