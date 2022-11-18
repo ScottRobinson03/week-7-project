@@ -17,6 +17,11 @@ io.on("connection", async socket => {
     socket.on("delete message", async msg => {
         io.emit("delete message", msg);
     });
+
+    socket.on("edit message", async msg => {
+        await Message.findByIdAndUpdate(msg.id, {content: msg.newContent});
+        io.emit("edit message", msg);
+    });
 });
 
 module.exports = { app, io, server };

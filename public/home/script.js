@@ -56,6 +56,8 @@ function checkKey(e) {
             }
             return;
         }
+        // Edit the message
+        socket.emit("edit message", {id: msgToEdit.id, newContent: newContentInp.value});
     });
 
     msgContentP.replaceWith(newContentInp);
@@ -128,4 +130,13 @@ socket.on("delete message", msg => {
     const liElement = document.getElementById(msg.id);
     liElement.blur();
     liElement.remove();
+});
+
+socket.on("edit message", msg => {
+    const liElement = document.getElementById(msg.id);
+    const oldElement = liElement.children[0].children[1] // li.div.p-content
+    const newContentP = document.createElement("p");
+    newContentP.classList.add("message-content");
+    newContentP.innerText = msg.newContent;
+    oldElement.replaceWith(newContentP);
 });
