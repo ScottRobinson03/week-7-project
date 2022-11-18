@@ -40,6 +40,10 @@ function checkKey(e) {
     }
     if (!msgToEdit) return; // user hasn't sent any messages
 
+    handlePotentialEdit(msgToEdit);
+}
+
+function handlePotentialEdit(msgToEdit) {
     msgToEdit.scrollIntoView();
 
     const msgContentP = msgToEdit.children[0].children[1];
@@ -53,9 +57,7 @@ function checkKey(e) {
     newContentInp.onkeydown = (ev => {
         ev = ev || window.event;
 
-        if (ev.keyCode === 27) { // esc key was pressed
-            newContentInp.replaceWith(msgContentP);
-        } else if (ev.keyCode == 13) { // return key was pressed
+        if ([13, 27].includes(ev.keyCode)) { // return or esc key was pressed
             newContentInp.blur();
         }
     });
@@ -87,6 +89,7 @@ function displayMessage(msg) {
     const clientUsername = getCookie("username");
     if (msg.author === clientUsername) {
         li.classList.add("own-message");
+        li.addEventListener("dblclick", () => handlePotentialEdit(li));
     }
 
     const div = document.createElement("div");
